@@ -124,39 +124,39 @@ const totalMinutes = articles.reduce((sum, article) => sum + article.minutes, 0)
 
 export default function Blog() {
   return (
-    <section className="relative overflow-hidden bg-background py-20 md:py-28">
+    <section className="relative overflow-hidden bg-background py-16 sm:py-20 md:py-28">
       <div className="absolute inset-0 bg-grid-blueprint opacity-35 pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-accent-glow/50 to-transparent pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-24">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-24">
         <motion.header
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className="grid gap-10 editorial-border-b pb-10 md:pb-12 lg:grid-cols-[1fr_320px] lg:items-end"
+          className="grid gap-8 editorial-border-b pb-9 sm:pb-10 md:pb-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end"
         >
           <div>
-            <p className="font-mono text-sm uppercase tracking-[0.3em] text-accent mb-5">
+            <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.24em] sm:tracking-[0.3em] text-accent mb-4 sm:mb-5">
               {"//"} Writing archive
             </p>
-            <h1 className="font-heading text-5xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter text-text-primary leading-none">
+            <h1 className="font-heading text-[3.25rem] sm:text-6xl md:text-8xl font-black uppercase tracking-tighter text-text-primary leading-none break-words">
               Engineering Notes<span className="text-accent">.</span>
             </h1>
-            <p className="mt-7 text-text-secondary text-lg leading-relaxed max-w-2xl">
+            <p className="mt-6 sm:mt-7 text-text-secondary text-base sm:text-lg leading-relaxed max-w-2xl">
               Practical essays on backend architecture, JavaScript internals, security boundaries, performance systems, and AI developer tooling.
             </p>
           </div>
 
-          <div className="theme-panel p-5">
-            <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="theme-panel p-4 sm:p-5">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
               {[
                 { value: articles.length, label: "Posts" },
                 { value: totalMinutes, label: "Min_Read" },
                 { value: "6", label: "Topics" },
               ].map((stat) => (
-                <div key={stat.label} className="border border-border bg-background/55 px-3 py-4">
-                  <div className="font-heading text-2xl font-black text-accent">{stat.value}</div>
-                  <div className="mt-2 font-mono text-[10px] uppercase tracking-widest text-text-secondary">{stat.label}</div>
+                <div key={stat.label} className="min-w-0 border border-border bg-background/55 px-2 sm:px-3 py-4">
+                  <div className="font-heading text-xl sm:text-2xl font-black text-accent">{stat.value}</div>
+                  <div className="mt-2 font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-text-secondary break-words">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -164,7 +164,7 @@ export default function Blog() {
               href="https://dev.to/opprajwal/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 flex items-center justify-between border border-border bg-text-primary px-4 py-3 font-mono text-xs uppercase tracking-widest text-background transition-colors hover:border-accent hover:bg-accent"
+              className="mt-4 flex items-center justify-between gap-4 border border-border bg-text-primary px-4 py-3 font-mono text-[11px] sm:text-xs uppercase tracking-widest text-background transition-colors hover:border-accent hover:bg-accent"
             >
               View DEV Channel
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -178,12 +178,12 @@ export default function Blog() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="flex flex-wrap gap-3 py-8"
+          className="flex flex-wrap gap-2 sm:gap-3 py-6 sm:py-8"
         >
           {topics.map((topic) => (
             <span
               key={topic}
-              className="border border-border bg-surface/70 px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
+              className="border border-border bg-surface/70 px-3 py-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
             >
               {topic}
             </span>
@@ -197,36 +197,36 @@ export default function Blog() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.15 }}
-          className="group grid overflow-hidden theme-panel md:grid-cols-[0.95fr_1.05fr]"
+          className="group grid overflow-hidden theme-panel lg:grid-cols-[0.95fr_1.05fr]"
           style={{ "--article-accent": featured.accent } as CSSProperties}
         >
-          <div className="relative min-h-[260px] md:min-h-[420px] overflow-hidden bg-surface-hover">
+          <div className="relative min-h-[220px] sm:min-h-[300px] lg:min-h-[420px] overflow-hidden bg-surface-hover">
             <div
               aria-hidden="true"
               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
               style={{ backgroundImage: `url(${featured.image})` }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/75 via-background/10 to-transparent" />
-            <div className="absolute left-6 top-6 border border-white/20 bg-black/40 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-white backdrop-blur">
+            <div className="absolute left-4 top-4 sm:left-6 sm:top-6 border border-white/20 bg-black/40 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-white backdrop-blur">
               Featured essay
             </div>
           </div>
-          <div className="flex flex-col justify-between p-7 md:p-10">
+          <div className="flex flex-col justify-between p-5 sm:p-7 md:p-10">
             <div>
-              <div className="mb-8 flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-widest">
+              <div className="mb-6 sm:mb-8 flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest">
                 <span className="px-2.5 py-1 text-white" style={{ backgroundColor: "var(--article-accent)" }}>Latest</span>
                 <span className="text-text-secondary">{featured.published}</span>
                 <span className="text-text-secondary">{featured.readTime} read</span>
               </div>
-              <h2 className="font-heading text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-tight text-text-primary group-hover:text-accent transition-colors">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tighter leading-tight text-text-primary group-hover:text-accent transition-colors break-words">
                 {featured.title}
               </h2>
-              <p className="mt-6 text-text-secondary text-lg leading-relaxed">
+              <p className="mt-5 sm:mt-6 text-text-secondary text-base sm:text-lg leading-relaxed">
                 {featured.description}
               </p>
             </div>
-            <div className="mt-10 flex items-center justify-between gap-6 border-t border-border pt-6">
-              <span className="font-mono text-xs uppercase tracking-[0.25em]" style={{ color: "var(--article-accent)" }}>
+            <div className="mt-8 sm:mt-10 flex items-center justify-between gap-6 border-t border-border pt-5 sm:pt-6">
+              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em]" style={{ color: "var(--article-accent)" }}>
                 Read on DEV
               </span>
               <span className="flex h-10 w-10 items-center justify-center border border-border text-text-primary transition-colors group-hover:text-text-primary" style={{ borderColor: "var(--article-accent)" }}>
@@ -238,7 +238,7 @@ export default function Blog() {
           </div>
         </motion.a>
 
-        <div className="mt-16 border-t border-border">
+        <div className="mt-10 sm:mt-14 lg:mt-16 grid gap-5 border-t border-border pt-5 lg:block lg:pt-0">
           {articles.slice(1).map((article, index) => (
             <motion.a
               key={article.url}
@@ -249,19 +249,19 @@ export default function Blog() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.45, delay: index * 0.04 }}
-              className="group relative grid gap-6 border-b border-border py-8 transition-colors hover:bg-text-primary/[0.025] md:grid-cols-[112px_150px_1fr_220px] md:items-start md:px-4 md:-mx-4"
+              className="group relative grid overflow-hidden border border-border bg-surface/55 transition-colors hover:bg-text-primary/[0.025] lg:grid-cols-[76px_132px_minmax(0,1fr)_180px] xl:grid-cols-[96px_150px_minmax(0,1fr)_220px] lg:items-start lg:border-x-0 lg:border-t-0 lg:bg-transparent lg:py-8 lg:px-4 lg:-mx-4"
               style={{ "--article-accent": article.accent } as CSSProperties}
             >
-              <div className="flex items-center justify-between md:block">
-                <span className="font-heading text-4xl font-black text-transparent [-webkit-text-stroke:1px_var(--border)] transition-all group-hover:text-[var(--article-accent)] group-hover:[-webkit-text-stroke:1px_var(--article-accent)]">
+              <div className="flex items-center justify-between p-4 pb-0 lg:block lg:p-0">
+                <span className="font-heading text-3xl sm:text-4xl font-black text-transparent [-webkit-text-stroke:1px_var(--border)] transition-all group-hover:text-[var(--article-accent)] group-hover:[-webkit-text-stroke:1px_var(--article-accent)]">
                   0{index + 2}
                 </span>
-                <span className="font-mono text-xs uppercase tracking-widest md:hidden" style={{ color: "var(--article-accent)" }}>
+                <span className="font-mono text-[11px] uppercase tracking-widest lg:hidden" style={{ color: "var(--article-accent)" }}>
                   {article.category}
                 </span>
               </div>
 
-              <div className="relative hidden aspect-[4/3] overflow-hidden bg-surface-hover md:block">
+              <div className="relative order-first aspect-[16/9] overflow-hidden bg-surface-hover lg:order-none lg:aspect-[4/3]">
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-cover bg-center grayscale transition-all duration-500 group-hover:scale-110 group-hover:grayscale-0"
@@ -270,21 +270,25 @@ export default function Blog() {
                 <div className="absolute inset-0 bg-background/20 transition-colors group-hover:bg-transparent" />
               </div>
 
-              <div>
-                <div className="mb-4 hidden items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-text-secondary md:flex">
+              <div className="min-w-0 px-4 pb-4 lg:p-0">
+                <div className="mb-4 hidden items-center gap-3 font-mono text-[11px] uppercase tracking-widest text-text-secondary lg:flex">
                   <span style={{ color: "var(--article-accent)" }}>{article.category}</span>
                   <span>{article.published}</span>
                   <span>{article.readTime} read</span>
                 </div>
-                <h3 className="font-heading text-2xl md:text-4xl font-bold uppercase tracking-tighter leading-tight text-text-primary transition-colors group-hover:text-[var(--article-accent)]">
+                <div className="mb-3 flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-widest text-text-secondary lg:hidden">
+                  <span>{article.published}</span>
+                  <span>{article.readTime} read</span>
+                </div>
+                <h3 className="font-heading text-2xl sm:text-3xl lg:text-3xl xl:text-4xl font-bold uppercase tracking-tighter leading-tight text-text-primary transition-colors group-hover:text-[var(--article-accent)] break-words">
                   {article.title}
                 </h3>
-                <p className="mt-4 max-w-3xl text-text-secondary leading-relaxed">
+                <p className="mt-4 max-w-3xl text-sm sm:text-base text-text-secondary leading-relaxed">
                   {article.description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2 md:justify-end">
+              <div className="flex flex-wrap gap-2 px-4 pb-4 lg:justify-end lg:p-0">
                 {article.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
