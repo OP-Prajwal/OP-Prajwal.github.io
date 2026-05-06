@@ -7,7 +7,7 @@ const experiences = [
   {
     role: "BTech in Computer Science & Engineering",
     company: "St. Joseph Engineering College",
-    duration: "2023 – Present",
+    duration: "2023 - Present",
     description: [
       "Pursuing a comprehensive curriculum in Computer Science algorithms, AI techniques, and deep learning.",
       "Actively developing intelligent predictive models and scalable web applications for real-world use cases.",
@@ -17,7 +17,7 @@ const experiences = [
   {
     role: "AI/ML Engineer & Full Stack Developer",
     company: "Freelance & Open Source",
-    duration: "2023 – Present",
+    duration: "2023 - Present",
     description: [
       "Engineered machine learning systems and neural networks from scratch using PyTorch and TensorFlow.",
       "Developed robust full-stack applications leveraging the MERN stack and Next.js.",
@@ -73,7 +73,7 @@ export default function Experience() {
 
                 {/* Card Content (Right Side on Desktop) */}
                 <div className="md:flex-1">
-                  <div className="editorial-border p-8 md:p-10 relative overflow-hidden bg-background md:group-hover:bg-white/[0.02] focus:bg-white/[0.02] active:bg-white/[0.02] transition-colors duration-500 text-center md:text-left">
+                  <div className="theme-panel p-8 md:p-10 relative overflow-hidden md:group-hover:bg-surface-hover/70 focus:bg-surface-hover/70 active:bg-surface-hover/70 transition-colors duration-500 text-center md:text-left">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-accent/5 -translate-y-1/2 translate-x-1/2 blur-2xl group-hover:bg-accent/10 focus:bg-accent/10 active:bg-accent/10 transition-colors duration-500 pointer-events-none" />
                     
                     <h3 className="font-heading text-2xl md:text-3xl font-bold text-text-primary uppercase tracking-wider mb-2 group-hover:text-accent focus:text-accent active:text-accent transition-colors duration-300 relative z-10">

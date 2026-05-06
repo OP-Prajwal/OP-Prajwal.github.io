@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const container = {
   hidden: { opacity: 0 },
@@ -43,7 +44,8 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20"
     >
       {/* Blueprint Grid Background */}
-      <div className="absolute inset-0 bg-grid-blueprint opacity-50 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-blueprint opacity-55 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-accent-glow/40 to-transparent pointer-events-none" />
 
       {/* Stark Vertical Line */}
       <div className="hidden md:block absolute left-6 md:left-24 top-0 bottom-0 w-px bg-border pointer-events-none" />
@@ -52,26 +54,60 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-24"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8 lg:px-12"
       >
         {/* Top Spacer */}
         <div className="h-16 md:h-24" />
 
-        {/* Massive Typography Name */}
-        <motion.div variants={item} className="mb-8 relative w-full overflow-visible flex flex-col items-center md:items-start text-center md:text-left">
-          <p className="font-mono text-xl md:text-2xl text-accent uppercase tracking-widest mb-4 md:-mb-2 ml-0 md:ml-1">{"//"} I am</p>
-          <h1 className="font-heading text-[15vw] sm:text-[14vw] md:text-[8rem] lg:text-[11rem] font-bold leading-none md:leading-[0.85] tracking-tighter text-text-primary uppercase mix-blend-difference py-2">
-            Prajwal
-            <span className="text-accent">.</span>
-          </h1>
-          {/* Abstract geometric shape behind text */}
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-96 md:h-96 border border-accent/20 rotate-45 pointer-events-none" />
-          <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-96 md:h-96 border border-accent/20 rotate-[60deg] pointer-events-none" />
+        {/* Massive Typography Name + Portrait */}
+        <motion.div
+          variants={item}
+          className="mb-8 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-8 w-full"
+        >
+          <div className="relative flex flex-col items-center overflow-visible text-center md:items-start md:text-left flex-1 min-w-0 md:-ml-4 lg:-ml-8">
+            <p className="font-mono text-xl md:text-2xl text-accent uppercase tracking-widest mb-4 md:-mb-2 ml-0 md:ml-1">{"//"} I am</p>
+            <h1 className="font-heading text-[16vw] sm:text-[14vw] md:text-[8vw] lg:text-[7vw] xl:text-[7.5rem] 2xl:text-[9rem] font-bold leading-none md:leading-[0.85] tracking-tighter text-text-primary uppercase py-2 whitespace-nowrap">
+              Prajwal
+              <span className="text-accent">.</span>
+            </h1>
+            
+            {/* Abstract geometric shape behind text */}
+            <div className="absolute -z-10 top-1/2 left-1/2 md:left-[40%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-96 md:h-96 border border-accent/25 rotate-45 pointer-events-none accent-glow" />
+            <div className="absolute -z-10 top-1/2 left-1/2 md:left-[40%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-96 md:h-96 border border-accent/20 rotate-[60deg] pointer-events-none" />
+          </div>
+
+          <motion.div
+            variants={item}
+            whileHover={{ y: -6 }}
+            transition={{ type: "spring", stiffness: 180, damping: 18 }}
+            className="relative shrink-0 mx-auto w-full max-w-[280px] sm:max-w-[320px] md:max-w-[260px] lg:max-w-[300px] xl:max-w-[340px]"
+          >
+            <div className="absolute -inset-4 border border-accent/20 rotate-3 pointer-events-none" />
+            <div className="absolute -left-5 top-10 hidden h-28 w-px bg-accent lg:block" />
+            <div className="relative aspect-[4/5] overflow-hidden border border-border bg-surface shadow-[0_28px_90px_rgba(0,0,0,0.14)] dark:shadow-[0_28px_90px_rgba(0,0,0,0.45)]">
+              <Image
+                src="https://nucleussjec.in/team/Prajwal.avif"
+                alt="Prajwal Gaonkar"
+                fill
+                priority
+                sizes="(max-width: 640px) 280px, (max-width: 1024px) 260px, 340px"
+                className="object-cover object-center saturate-[0.9] contrast-[1.04] transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+              <div className="absolute left-4 top-4 border border-white/20 bg-black/35 px-3 py-2 font-mono text-[10px] uppercase tracking-widest text-white backdrop-blur">
+                Available_2026
+              </div>
+            </div>
+            <div className="relative -mt-px grid grid-cols-1 gap-1 border border-border bg-background/90 px-4 py-3 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-text-secondary backdrop-blur sm:grid-cols-2 sm:text-left">
+              <span className="text-text-primary">Prajwal Gaonkar</span>
+              <span className="text-accent sm:text-right">AI/ML + Web</span>
+            </div>
+          </motion.div>
         </motion.div>
 
         <div className="grid md:grid-cols-12 gap-12 mt-12 md:mt-24 items-start">
           {/* Subtitle/Role */}
-          <motion.div variants={item} className="md:col-span-5 md:border-r md:border-white/10 pr-0 md:pr-8 relative flex flex-col items-center md:items-start text-center md:text-left">
+          <motion.div variants={item} className="md:col-span-5 md:border-r md:border-border pr-0 md:pr-8 relative flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="font-mono text-xl md:text-2xl text-text-secondary uppercase tracking-wider mb-6 leading-tight">
               AI/ML Engineer <br className="hidden md:block" />
               <span className="text-accent">&</span> Full Stack Dev
@@ -91,17 +127,17 @@ export default function Hero() {
                   e.preventDefault();
                   document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="group relative px-8 py-4 bg-white text-black font-mono font-bold uppercase tracking-widest overflow-hidden editorial-border flex items-center justify-center gap-3 w-full sm:w-auto"
+                className="group relative px-8 py-4 bg-text-primary text-background font-mono font-bold uppercase tracking-widest overflow-hidden editorial-border flex items-center justify-center gap-3 w-full sm:w-auto"
               >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Init_Projects</span>
-                <span className="relative z-10 w-2 h-2 bg-black group-hover:bg-accent transition-colors duration-300" />
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-background">Init_Projects</span>
+                <span className="relative z-10 w-2 h-2 bg-background group-hover:bg-accent transition-colors duration-300" />
                 <div className="absolute inset-0 bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out" />
               </a>
               
               <a
                 href="/resume.pdf"
                 download
-                className="group px-8 py-4 editorial-border text-text-primary font-mono font-bold uppercase tracking-widest hover:bg-white/5 transition-colors duration-300 text-center flex justify-center items-center w-full sm:w-auto"
+                className="group px-8 py-4 editorial-border bg-surface/60 text-text-primary font-mono font-bold uppercase tracking-widest hover:bg-surface-hover transition-colors duration-300 text-center flex justify-center items-center w-full sm:w-auto"
               >
                 Download_CV
               </a>

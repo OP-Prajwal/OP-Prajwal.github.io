@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "nucleussjec.in",
+        pathname: "/team/**",
+      },
+    ],
+  },
+
   // Security headers for production
   async headers() {
     return [

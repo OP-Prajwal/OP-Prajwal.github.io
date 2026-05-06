@@ -115,18 +115,18 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileTap={{ scale: 0.98 }}
               onTouchStart={() => {}}
-              className="group relative flex flex-col md:flex-row items-center justify-between py-12 md:py-16 border-b border-border hover:bg-white/[0.02] active:bg-white/[0.02] transition-colors duration-500 px-4 md:px-8 -mx-4 md:-mx-8 text-center md:text-left cursor-pointer"
+              className="group relative flex flex-col md:flex-row items-center justify-between py-12 md:py-16 border-b border-border hover:bg-text-primary/[0.02] active:bg-text-primary/[0.02] transition-colors duration-500 px-4 md:px-8 -mx-4 md:-mx-8 text-center md:text-left cursor-pointer"
             >
               {/* Left Side: Number & Title */}
               <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-6 md:gap-12 w-full md:w-auto relative z-10 text-center md:text-left">
-                <span className="font-heading text-4xl md:text-6xl font-black text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] group-hover:[-webkit-text-stroke:1px_#00FFCC] group-active:[-webkit-text-stroke:1px_#00FFCC] group-hover:text-accent group-active:text-accent transition-all duration-500 leading-none">
+                <span className="font-heading text-4xl md:text-6xl font-black text-transparent [-webkit-text-stroke:1px_var(--border)] group-hover:[-webkit-text-stroke:1px_var(--accent)] group-active:[-webkit-text-stroke:1px_var(--accent)] group-hover:text-accent group-active:text-accent transition-all duration-500 leading-none">
                   0{index + 1}
                 </span>
                 
                 <h3 className="font-heading text-3xl md:text-5xl font-bold uppercase tracking-tighter text-text-primary group-hover:-translate-y-1 group-active:-translate-y-1 md:group-hover:translate-x-4 md:group-active:translate-x-4 md:group-hover:-translate-y-0 md:group-active:-translate-y-0 transition-transform duration-500 ease-out flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4 relative z-20">
                   {project.title}
                   {project.featured && (
-                    <span className="text-[10px] font-mono tracking-widest text-black bg-accent px-2 py-1 uppercase rounded-sm md:translate-y-[-10px] whitespace-nowrap">
+                    <span className="text-[10px] font-mono tracking-widest text-background bg-accent px-2 py-1 uppercase rounded-sm md:translate-y-[-10px] whitespace-nowrap">
                       Featured
                     </span>
                   )}

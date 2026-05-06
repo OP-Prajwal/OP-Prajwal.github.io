@@ -3,6 +3,7 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -90,7 +91,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-black/90 backdrop-blur-md border-b border-border shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           : "bg-transparent"
       }`}
     >
@@ -105,7 +106,7 @@ export default function Navbar() {
         </button>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => {
             const isActive = link.href.startsWith("/") 
               ? pathname === link.href 
@@ -117,7 +118,7 @@ export default function Navbar() {
                   onClick={() => handleClick(link.href)}
                   className={`transition-colors duration-300 relative ${
                     isActive 
-                      ? "text-accent [text-shadow:0_0_8px_rgba(0,255,204,0.4)]" 
+                      ? "text-accent [text-shadow:0_0_12px_var(--accent-glow)]" 
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
@@ -135,12 +136,16 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 z-50 text-accent"
-          aria-label="Toggle menu"
-        >
+        {/* Actions Container */}
+        <div className="flex items-center gap-4 md:gap-6">
+          <ThemeToggle />
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 z-50 text-accent"
+            aria-label="Toggle menu"
+          >
           <span
             className={`w-6 h-px bg-current transition-all duration-300 ${
               isOpen ? "rotate-45 translate-y-2" : ""
@@ -157,6 +162,7 @@ export default function Navbar() {
             }`}
           />
         </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -164,7 +170,7 @@ export default function Navbar() {
         initial={false}
         animate={isOpen ? { height: "100vh", opacity: 1 } : { height: 0, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-black absolute top-0 left-0 right-0 flex flex-col items-center justify-center border-b border-border"
+        className="md:hidden overflow-hidden bg-background absolute top-0 left-0 right-0 flex flex-col items-center justify-center border-b border-border"
         style={{ pointerEvents: isOpen ? "auto" : "none" }}
       >
         <ul className="flex flex-col items-center space-y-8 font-mono text-sm uppercase tracking-[0.3em]">

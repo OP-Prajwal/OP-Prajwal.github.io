@@ -21,7 +21,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
       className="mb-16 md:mb-24 editorial-border-b pb-8 flex flex-col md:flex-row items-center text-center md:text-left md:items-end justify-between"
     >
       <div className="relative flex flex-col items-center md:items-start">
-        <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tighter mix-blend-difference relative z-10">
+        <h2 className="font-heading text-4xl md:text-6xl font-bold uppercase tracking-tighter text-text-primary relative z-10">
           [{title}]
         </h2>
         <div className="hidden md:block absolute left-0 w-[150%] h-[1px] bg-border top-20 -z-10" />

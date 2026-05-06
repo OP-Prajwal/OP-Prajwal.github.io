@@ -69,7 +69,7 @@ export default function CustomCursor() {
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
           scale: isHovering ? 1.8 : 1,
-          backgroundColor: isHovering ? "rgba(0, 255, 204, 0.1)" : "transparent",
+          backgroundColor: isHovering ? "var(--accent-glow)" : "transparent",
           borderRadius: isHovering ? "0%" : "50%",
           rotate: isHovering ? 45 : 0,
         }}

@@ -8,7 +8,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border bg-black">
+    <footer className="relative border-t border-border bg-background">
       <div className="max-w-7xl mx-auto px-6 md:px-24 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
           {/* Copyright */}

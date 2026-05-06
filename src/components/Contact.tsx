@@ -144,13 +144,13 @@ export default function Contact() {
                   ? "border-yellow-500 text-yellow-500"
                   : status === "sending"
                   ? "border-accent/30 text-accent/50 cursor-wait"
-                  : "border-text-primary text-black bg-white hover:border-accent"
+                  : "border-text-primary text-background bg-text-primary hover:border-accent"
               }`}
             >
               {status !== "sent" && status !== "sending" && status !== "error" && status !== "rate_limited" && (
                 <div className="absolute inset-0 bg-accent scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out" />
               )}
-              <span className={`relative z-10 ${status === "idle" ? "group-hover:text-black" : ""}`}>
+              <span className={`relative z-10 ${status === "idle" ? "group-hover:text-background" : ""}`}>
                 {status === "sending"
                   ? "Transmitting..."
                   : status === "sent"
@@ -158,7 +158,7 @@ export default function Contact() {
                   : status === "error"
                   ? "Transmission Failed"
                   : status === "rate_limited"
-                  ? "Too Many Requests — Try Later"
+                  ? "Too Many Requests - Try Later"
                   : "Send_Message"}
               </span>
             </motion.button>
@@ -211,7 +211,7 @@ export default function Contact() {
               ))}
             </div>
             
-            <div className="mt-12 p-6 border border-border/50 bg-white/[0.02]">
+            <div className="mt-12 p-6 theme-panel">
               <p className="font-mono text-xs uppercase tracking-widest text-text-secondary leading-relaxed text-center">
                 Currently open for freelance opportunities and full-time roles in full-stack architecture and machine learning.
               </p>

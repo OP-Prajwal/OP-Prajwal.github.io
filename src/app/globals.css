@@ -1,19 +1,59 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #000000;
-  --color-surface: #0a0a0a;
-  --color-surface-hover: #111111;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #888888;
-  --color-accent: #00FFCC; /* Electric Cyan accent */
-  --color-accent-dark: #00CCAA;
-  --color-accent-glow: rgba(0, 255, 204, 0.15);
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-glow: var(--accent-glow);
 
   --font-sans: var(--font-outfit), system-ui, -apple-system, sans-serif;
   --font-heading: var(--font-syne), var(--font-outfit), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
+}
+
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --surface-hover: #f0ebe2;
+  --border: rgba(24, 35, 28, 0.14);
+  --text-primary: #18231c;
+  --text-secondary: #5e665f;
+  --accent: #0f7a5f;
+  --accent-dark: #0a5f4a;
+  --accent-glow: rgba(15, 122, 95, 0.18);
+  
+  --scrollbar-track: #f7f3ea;
+  --scrollbar-thumb: #cfc6b8;
+  
+  --grid-line: rgba(24, 35, 28, 0.07);
+  --gradient-start: #18231c;
+  
+  --invert-filter: invert(0);
+}
+
+.dark {
+  --bg: #050607;
+  --surface: #0d1012;
+  --surface-hover: #151a1d;
+  --border: rgba(234, 244, 239, 0.12);
+  --text-primary: #f4f7f5;
+  --text-secondary: #9aa7a0;
+  --accent: #28e0b5;
+  --accent-dark: #12b895;
+  --accent-glow: rgba(40, 224, 181, 0.18);
+  
+  --scrollbar-track: #050607;
+  --scrollbar-thumb: #30383a;
+  
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --gradient-start: #f4f7f5;
+  
+  --invert-filter: invert(1);
 }
 
 /* Custom scrollbar */
@@ -22,34 +62,40 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: var(--scrollbar-thumb);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00FFCC;
+  background: var(--accent);
 }
 
 /* Selection */
 ::selection {
-  background: #00FFCC;
-  color: #000000;
+  background: var(--accent);
+  color: var(--bg);
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-tap-highlight-color: transparent;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
-  background: #000000;
-  color: #FFFFFF;
+  background: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-outfit), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: background-color 220ms ease, color 220ms ease;
 }
 
 @media (pointer: fine) {
@@ -67,9 +113,9 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-space-mono), monospace;
 }
 
-/* Animated gradient text (Kept for subtle usage, but adjusted for the new accent) */
+/* Animated gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #FFFFFF 0%, #00FFCC 100%);
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -78,22 +124,36 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 /* Stark Grid Blueprint lines */
 .bg-grid-blueprint {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 50px 50px;
+}
+
+.theme-panel {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
+}
+
+.dark .theme-panel {
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.accent-glow {
+  box-shadow: 0 0 0 1px var(--border), 0 0 40px var(--accent-glow);
 }
 
 /* Editorial layout utilities */
 .editorial-border {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
 }
 
 .editorial-border-b {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border);
 }
 
 .editorial-border-r {
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--border);
 }
 
 /* Hover reveals */
