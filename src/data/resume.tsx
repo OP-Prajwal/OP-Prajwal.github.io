@@ -42,8 +42,8 @@ export const DATA = {
     { name: "Backend Dev" },
   ],
   navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "https://dev.to/opprajwal", icon: NotebookIcon, label: "Blog" },
+    { href: "/", icon: Icons.home, label: "Home" },
+    { href: "https://dev.to/opprajwal", icon: Icons.blog, label: "Blog" },
   ],
   contact: {
     email: "prajwalgaonkar24@gmail.com",
