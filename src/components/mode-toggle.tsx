@@ -27,13 +27,23 @@ export function ModeToggle({ className }: { className?: string }) {
       // only for non-pointer activations (e.g. keyboard Enter).
       let x: number;
       let y: number;
-      if (e.clientX !== 0 || e.clientY !== 0) {
+      
+      // Try using the event coordinates first (works for mouse/some touch)
+      if (e && (e.clientX !== 0 || e.clientY !== 0)) {
         x = e.clientX;
         y = e.clientY;
       } else {
+        // Fallback to bounding rect
         const rect = btnRef.current.getBoundingClientRect();
         x = rect.left + rect.width / 2;
         y = rect.top + rect.height / 2;
+      }
+      
+      // If coordinates somehow ended up at 0, 0 (top-left) due to weird mobile layout shifts,
+      // force it to the bottom-center where the dock actually is.
+      if (x === 0 && y === 0) {
+        x = window.innerWidth / 2;
+        y = window.innerHeight - 40;
       }
 
       const endRadius = Math.hypot(
