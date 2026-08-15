@@ -252,3 +252,17 @@
 .dark::view-transition-new(root) {
   z-index: 2;
 }
+
+@keyframes snow {
+  0% {
+    transform: translateY(-10vh) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(20px);
+    opacity: 0.3;
+  }
+}
+.animate-snow {
+  animation: snow linear infinite;
+}
