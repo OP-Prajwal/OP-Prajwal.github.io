@@ -1,64 +1,58 @@
+import Navbar from "@/components/navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { DATA } from "@/data/resume";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Syne, Space_Mono, Outfit } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
-const syne = Syne({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
 });
 
-const spaceMono = Space_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-space-mono",
-  weight: ["400", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-mono",
 });
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-};
 
 export const metadata: Metadata = {
-  title: "Prajwal | Full Stack & AI Developer",
-  description:
-    "Personal portfolio of Prajwal - Full Stack Developer & AI/ML Engineer specializing in MERN stack, Next.js, and Machine Learning.",
-  keywords: [
-    "Prajwal",
-    "Full Stack Developer",
-    "AI Developer",
-    "MERN Stack",
-    "Next.js",
-    "Machine Learning",
-    "Portfolio",
-  ],
-  authors: [{ name: "Prajwal" }],
-  openGraph: {
-    title: "Prajwal | Full Stack & AI Developer",
-    description:
-      "Personal portfolio of Prajwal - Full Stack Developer & AI/ML Engineer.",
-    type: "website",
-    locale: "en_US",
+  metadataBase: new URL(DATA.url),
+  title: {
+    default: DATA.name,
+    template: `%s | ${DATA.name}`,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Prajwal | Full Stack & AI Developer",
-    description:
-      "Personal portfolio of Prajwal - Full Stack Developer & AI/ML Engineer.",
+  description: DATA.description,
+  openGraph: {
+    title: `${DATA.name}`,
+    description: DATA.description,
+    url: DATA.url,
+    siteName: `${DATA.name}`,
+    locale: "en_US",
+    type: "website",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: `${DATA.name}`,
+    card: "summary_large_image",
+  },
+  verification: {
+    google: "",
+    yandex: "",
   },
 };
 
@@ -68,13 +62,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${syne.variable} ${spaceMono.variable} ${outfit.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          {/* CSS Noise Overlay */}
-          <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay dark:invert-0 invert" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')" }}></div>
-          <CustomCursor />
-          {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased relative",
+          geist.variable,
+          geistMono.variable
+        )}
+      >
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <TooltipProvider delayDuration={0}>
+            <div className="absolute inset-0 top-0 left-0 right-0 h-[100px] overflow-hidden z-0">
+              <FlickeringGrid
+                className="h-full w-full"
+                squareSize={2}
+                gridGap={2}
+                style={{
+                  maskImage: "linear-gradient(to bottom, black, transparent)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+                }}
+              />
+            </div>
+            <div className="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+              {children}
+            </div>
+            <Navbar />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

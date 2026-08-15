@@ -1,210 +1,97 @@
-"use client";
-
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
-];
+import { Dock, DockIcon } from "@/components/magicui/dock";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Separator } from "@/components/ui/separator";
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { DATA } from "@/data/resume";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState(() => pathname === "/" ? "home" : "");
-  const { scrollY } = useScroll();
-  const router = useRouter();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-  });
-
-  // Reset active section when navigating away from homepage
-  useEffect(() => {
-    if (pathname !== "/") {
-      // Use a microtask to avoid synchronous setState in effect
-      queueMicrotask(() => setActiveSection(""));
-      return;
-    }
-
-    const observers = new Map();
-    
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -60% 0px", // Adjust trigger area
-      threshold: 0, // Trigger as soon as the element enters the margin
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    navLinks.forEach((link) => {
-      const id = link.href.substring(1);
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-        observers.set(id, element);
-      }
-    });
-
-    return () => {
-      observers.forEach((element) => observer.unobserve(element));
-    };
-  }, [pathname]);
-
-  const handleClick = (href: string) => {
-    setIsOpen(false);
-
-    if (href.startsWith("/")) {
-      router.push(href);
-      return;
-    }
-
-    if (pathname !== "/") {
-      router.push(`/${href}`);
-      return;
-    }
-
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-24 h-20 flex items-center justify-between font-mono text-xs uppercase tracking-[0.2em]">
-        {/* Logo */}
-        <button
-          onClick={() => handleClick("#home")}
-          className="font-bold text-text-primary hover:text-accent transition-colors flex items-center gap-2"
-        >
-          <span className="w-2 h-2 bg-accent" />
-          PRJWL<span className="text-accent">_</span>
-        </button>
-
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
-          {navLinks.map((link) => {
-            const isActive = link.href.startsWith("/") 
-              ? pathname === link.href 
-              : activeSection === link.href.substring(1);
-            
-            return (
-              <li key={link.href}>
-                <button
-                  onClick={() => handleClick(link.href)}
-                  className={`transition-colors duration-300 relative ${
-                    isActive 
-                      ? "text-accent [text-shadow:0_0_12px_var(--accent-glow)]" 
-                      : "text-text-secondary hover:text-text-primary"
-                  }`}
+    <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
+      <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5">
+        {DATA.navbar.map((item) => {
+          const isExternal = item.href.startsWith("http");
+          return (
+            <Tooltip key={item.href}>
+              <TooltipTrigger asChild>
+                <a
+                  href={item.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
                 >
-                  [{link.label}]
-                  {isActive && (
-                    <motion.div
-                      layoutId="navbar-indicator"
-                      className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent"
-                      transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                    />
-                  )}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Actions Container */}
-        <div className="flex items-center gap-4 md:gap-6">
-          <ThemeToggle />
-
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 z-50 text-accent"
-            aria-label="Toggle menu"
-          >
-          <span
-            className={`w-6 h-px bg-current transition-all duration-300 ${
-              isOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-px bg-current transition-all duration-300 ${
-              isOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-px bg-current transition-all duration-300 ${
-              isOpen ? "-rotate-45 -translate-y-[7px]" : ""
-            }`}
-          />
-        </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={isOpen ? { height: "100vh", opacity: 1 } : { height: 0, opacity: 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden bg-background absolute top-0 left-0 right-0 flex flex-col items-center justify-center border-b border-border"
-        style={{ pointerEvents: isOpen ? "auto" : "none" }}
-      >
-        <ul className="flex flex-col items-center space-y-8 font-mono text-sm uppercase tracking-[0.3em]">
-          {navLinks.map((link, i) => {
-            const isActive = link.href.startsWith("/") 
-              ? pathname === link.href 
-              : activeSection === link.href.substring(1);
-            
-            return (
-              <motion.li
-                key={link.href}
-                initial={{ y: 20, opacity: 0 }}
-                animate={isOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-                transition={{ delay: isOpen ? i * 0.1 : 0 }}
+                  <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+                    <item.icon className="size-full rounded-sm overflow-hidden object-contain" />
+                  </DockIcon>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent
+                side="top"
+                sideOffset={8}
+                className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
               >
-                <button
-                  onClick={() => handleClick(link.href)}
-                  className={`transition-colors relative group ${
-                    isActive ? "text-accent" : "text-text-secondary hover:text-text-primary"
-                  }`}
+                <p>{item.label}</p>
+                <TooltipArrow className="fill-primary" />
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
+        <Separator
+          orientation="vertical"
+          className="h-2/3 m-auto w-px bg-border"
+        />
+        {Object.entries(DATA.contact.social)
+          .filter(([_, social]) => social.navbar)
+          .map(([name, social], index) => {
+            const isExternal = social.url.startsWith("http");
+            const IconComponent = social.icon;
+            return (
+              <Tooltip key={`social-${name}-${index}`}>
+                <TooltipTrigger asChild>
+                  <a
+                    href={social.url}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                  >
+                    <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+                      <IconComponent className="size-full rounded-sm overflow-hidden object-contain" />
+                    </DockIcon>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="top"
+                  sideOffset={8}
+                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
                 >
-                  {link.label}
-                  {isActive && (
-                     <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full h-px bg-accent transition-all duration-300" />
-                  )}
-                  {!isActive && (
-                     <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-px bg-text-primary group-hover:w-full transition-all duration-300" />
-                  )}
-                </button>
-              </motion.li>
+                  <p>{name}</p>
+                  <TooltipArrow className="fill-primary" />
+                </TooltipContent>
+              </Tooltip>
             );
           })}
-        </ul>
-      </motion.div>
-    </motion.nav>
+        <Separator
+          orientation="vertical"
+          className="h-2/3 m-auto w-px bg-border"
+        />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-muted-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+              <ModeToggle className="size-full cursor-pointer" />
+            </DockIcon>
+          </TooltipTrigger>
+          <TooltipContent
+            side="top"
+            sideOffset={8}
+            className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          >
+            <p>Theme</p>
+            <TooltipArrow className="fill-primary" />
+          </TooltipContent>
+        </Tooltip>
+      </Dock>
+    </div>
   );
 }
