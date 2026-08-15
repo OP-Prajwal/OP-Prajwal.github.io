@@ -31,13 +31,20 @@ interface DockContextValue {
 
 const DockContext = createContext<DockContextValue | null>(null);
 
+const isTouchDevice = () => {
+  if (typeof window === "undefined") return false;
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+};
+
 const Dock = ({ className, children, magnification = DEFAULT_MAGNIFICATION, distance = DEFAULT_DISTANCE }: DockProps) => {
   const mouseX = useMotionValue(Infinity);
 
   return (
     <DockContext.Provider value={{ mouseX, magnification, distance }}>
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
+        onMouseMove={(e) => {
+          if (!isTouchDevice()) mouseX.set(e.pageX);
+        }}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn("mx-auto w-max h-full flex items-end justify-center overflow-visible rounded-full border", className)}
       >

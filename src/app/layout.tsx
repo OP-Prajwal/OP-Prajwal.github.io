@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${DATA.url}/me.png`,
+        url: `${DATA.url}/me.webp`,
         width: 800,
         height: 600,
         alt: DATA.name,
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     title: `${DATA.name}`,
     card: "summary_large_image",
-    images: [`${DATA.url}/me.png`],
+    images: [`${DATA.url}/me.webp`],
   },
   verification: {
     google: "",

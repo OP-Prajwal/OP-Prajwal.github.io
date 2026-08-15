@@ -11,7 +11,7 @@ export const DATA = {
     "Software Engineer specializing in AI/ML, Backend Infrastructure, and DevOps. Passionate about building scalable, intelligent systems and high-availability architectures.",
   summary:
     "Pursuing my BTech in Computer Science and Engineering. I am a versatile Software Engineer with expertise spanning AI/ML, Full-Stack Development, and DevOps. I specialize in bridging the gap between machine learning inference and robust, scalable backend infrastructure. With a strong command of Go, TypeScript, Python, Kubernetes, and Docker, I architect high-availability systems, optimize CI/CD pipelines, and build seamless end-to-end applications. From crafting deep learning models to deploying distributed microservices, I focus on shipping highly performant and purposeful code.",
-  avatarUrl: "/me.avif",
+  avatarUrl: "/me.webp",
   skills: [
     { name: "Deep Learning" },
     { name: "Neural Networks" },
