@@ -38,6 +38,8 @@ export const DATA = {
     { name: "System Design" },
     { name: "DSA (500+ Solved)" },
     { name: "Competitive Programming" },
+    { name: "Full Stack" },
+    { name: "Backend Dev" },
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
