@@ -34,6 +34,14 @@ export const metadata: Metadata = {
     siteName: `${DATA.name}`,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: `${DATA.url}/me.png`,
+        width: 800,
+        height: 600,
+        alt: DATA.name,
+      },
+    ],
   },
   robots: {
     index: true,
@@ -49,6 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     title: `${DATA.name}`,
     card: "summary_large_image",
+    images: [`${DATA.url}/me.png`],
   },
   verification: {
     google: "",
