@@ -235,22 +235,13 @@
 
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-::view-transition-old(root) {
-  z-index: 1;
-}
-::view-transition-new(root) {
-  z-index: 2;
-}
-.dark::view-transition-old(root) {
-  z-index: 1;
-}
-.dark::view-transition-new(root) {
-  z-index: 2;
+/* Smooth theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
 
 @keyframes snow {
