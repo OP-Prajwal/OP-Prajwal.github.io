@@ -1,72 +1,82 @@
 "use client";
 
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
 import { flushSync } from "react-dom";
-import { Button } from "@/components/ui/button";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
 import { playSound } from "@/lib/sound-engine";
 import { click003Sound } from "@/lib/click-003";
+import { cn } from "@/lib/utils";
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (callback: () => void) => void;
+};
+
+function subscribeToClient() {
+  return () => {};
+}
+
+function getClientSnapshot() {
+  return true;
+}
+
+function getServerSnapshot() {
+  return false;
+}
+
+function useMounted() {
+  return React.useSyncExternalStore(
+    subscribeToClient,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
+}
 
 export function ModeToggle({ className }: { className?: string }) {
   const { setTheme, resolvedTheme } = useTheme();
+  const mounted = useMounted();
 
-  const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
-    void playSound(click003Sound.dataUri, { volume: 0.5 });
-    const next = resolvedTheme === "dark" ? "light" : "dark";
+  if (!mounted) {
+    return <div className={cn("h-[18px] w-[18px]", className)} />;
+  }
 
-    if (!("startViewTransition" in document)) {
-      setTheme(next);
+  const isDark = resolvedTheme === "dark";
+
+  const toggleTheme = () => {
+    const nextTheme = isDark ? "light" : "dark";
+    const transitionDocument = document as ViewTransitionDocument;
+
+    if (!transitionDocument.startViewTransition) {
+      setTheme(nextTheme);
       return;
     }
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-
-
-    const transition = document.startViewTransition(() => {
-      document.documentElement.classList.add("disable-transitions");
+    transitionDocument.startViewTransition(() => {
       flushSync(() => {
-        setTheme(next);
+        setTheme(nextTheme);
       });
-    });
-
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 600,
-          easing: "ease-in-out",
-          pseudoElement: "::view-transition-new(root)",
-        }
-      );
-    });
-
-    transition.finished.then(() => {
-      document.documentElement.classList.remove("disable-transitions");
     });
   };
 
   return (
-    <Button
+    <button
       type="button"
-      variant="link"
-      size="icon"
-      className={cn(className)}
-      onClick={toggleTheme}
+      onClick={() => {
+        void playSound(click003Sound.dataUri, { volume: 0.5 });
+        toggleTheme();
+      }}
+      className={cn(
+        "relative z-50 flex h-[18px] w-[18px] cursor-pointer items-center justify-center text-zinc-500 transition-all duration-300 hover:text-zinc-900 active:scale-95 dark:text-zinc-600 dark:hover:text-zinc-300",
+        className,
+      )}
+      aria-label="Toggle theme"
+      aria-pressed={isDark}
     >
-      <SunIcon className="h-full w-full dark:hidden" />
-      <MoonIcon className="hidden h-full w-full dark:block" />
-    </Button>
+      {isDark ? (
+        <Sun className="h-[18px] w-[18px]" />
+      ) : (
+        <Moon className="h-[18px] w-[18px]" />
+      )}
+    </button>
   );
 }
