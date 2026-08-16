@@ -22,7 +22,7 @@ export default function Page() {
             <div className="gap-2 flex flex-col order-2 md:order-1">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
+                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
                 yOffset={8}
                 text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
               />
@@ -116,18 +116,38 @@ export default function Page() {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-xl font-bold">Skills &amp; Technologies</h2>
           </BlurFade>
-          <div className="flex flex-wrap gap-2">
-            {DATA.skills.map((skill: any, id) => (
-              <BlurFade key={skill.name} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                  {skill.icon && <skill.icon className="size-4 rounded overflow-hidden object-contain" />}
-                  <span className="text-foreground text-sm font-medium">{skill.name}</span>
+          <BlurFade delay={BLUR_FADE_DELAY * 10}>
+            <div className="flex flex-wrap gap-2 w-full">
+              {DATA.skills.map((skill: any, id: number) => (
+                <div
+                  key={id}
+                  className="grow flex items-center justify-center gap-2 px-3 py-1.5 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#0a0a0a] dark:hover:bg-[#121214] border border-black/10 dark:border-white/[0.1] rounded-[6px] transition-colors duration-200 cursor-default"
+                >
+                  {skill.icon && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={
+                        skill.icon.startsWith("http")
+                          ? skill.icon
+                          : `https://cdn.simpleicons.org/${skill.icon}/71717a`
+                      }
+                      alt={skill.name}
+                      width={14}
+                      height={14}
+                      loading="lazy"
+                      decoding="async"
+                      className={`h-3.5 w-3.5 opacity-80 ${skill.icon.startsWith("http") ? "rounded-sm grayscale" : ""}`}
+                    />
+                  )}
+                  <span className="text-[13px] font-medium text-zinc-600 dark:text-zinc-400">
+                    {skill.name}
+                  </span>
                 </div>
-              </BlurFade>
-            ))}
-          </div>
+              ))}
+            </div>
+          </BlurFade>
         </div>
       </section>
       <section id="projects">
