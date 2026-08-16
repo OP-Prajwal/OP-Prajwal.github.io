@@ -232,6 +232,26 @@
   .prose :where(tbody tr:last-child td):not(:where([class~="not-prose"] *)) {
     @apply border-b-0;
   }
+
+  ::view-transition-group(root) {
+    animation-timing-function: var(--expo-out);
+  }
+  ::view-transition-old(root),.dark::view-transition-old(root) {
+    animation: none;
+    animation-fill-mode: both;
+    z-index: -1;
+  }
+  ::view-transition-new(root) {
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="m20 0 20 35H0z" fill="white"/></svg>') center / 0 no-repeat;
+    animation: scale 0.7s;
+    animation-fill-mode: both;
+  }
+
+  @keyframes scale {
+    to {
+      mask-size: 300vmax;
+    }
+  }
 }
 
 /* Smooth theme transition for colors */
@@ -259,22 +279,4 @@
   animation: snow linear infinite;
 }
 
-::view-transition-group(root) {
-  animation-timing-function: var(--expo-out);
-}
-::view-transition-old(root),.dark::view-transition-old(root) {
-  animation: none;
-  animation-fill-mode: both;
-  z-index: -1;
-}
-::view-transition-new(root) {
-  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><path d="m20 0 20 35H0z" fill="white"/></svg>') center / 0 no-repeat;
-  animation: scale 0.7s;
-  animation-fill-mode: both;
-}
-
-@keyframes scale {
-  to {
-    mask-size: 300vmax;
-  }
-}
+
