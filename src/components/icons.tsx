@@ -6,7 +6,7 @@ export const Icons = {
   globe: (props: IconProps) => <GlobeIcon {...props} />,
   home: (props: IconProps) => <HomeIcon color="#3B82F6" {...props} />,
   blog: (props: IconProps) => <NotebookIcon color="#F97316" {...props} />,
-  email: (props: IconProps) => <MailIcon {...props} />,
+  email: (props: IconProps) => <MailIcon color="#EF4444" {...props} />,
   linkedin: (props: IconProps) => (
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
       <title>LinkedIn</title>
