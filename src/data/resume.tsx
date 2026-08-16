@@ -42,7 +42,7 @@ export const DATA = {
     { name: "Postman", icon: "postman" },
   ],
   navbar: [
-    { href: "/", icon: Icons.home, label: "Home" },
+    { href: `mailto:prajwalgaonkar24@gmail.com`, icon: Icons.email, label: "Email" },
     { href: "https://dev.to/opprajwal", icon: Icons.blog, label: "Blog" },
   ],
   contact: {
