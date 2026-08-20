@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import { DATA } from "@/data/resume";
 import type { MetadataRoute } from "next";
 
