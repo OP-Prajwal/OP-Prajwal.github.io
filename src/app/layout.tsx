@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     template: `%s | ${DATA.name}`,
   },
   description: DATA.description,
+  keywords: ["Software Engineer", "Web Developer", "React", "Next.js", "AI", "Machine Learning", "Prajwal Gaonkar", "Portfolio"],
+  creator: DATA.name,
+  authors: [{ name: DATA.name, url: DATA.url }],
   icons: {
     icon: [
       { url: "/favicon.png", type: "image/png" },
